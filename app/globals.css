@@ -1,0 +1,136 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* neutrals */
+  --background: 0 0% 100%;
+  --foreground: 240 10% 4%;
+  --card: 0 0% 100%;
+  --card-foreground: 240 10% 4%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 240 10% 4%;
+
+  /* brand + accent: pink-first, 3-5 colors total */
+  --primary: 340 85% 52%;
+  --primary-foreground: 0 0% 100%;
+  --accent: 340 100% 97%;
+  --accent-foreground: 340 50% 30%;
+
+  /* subtle neutrals */
+  --muted: 340 30% 96%;
+  --muted-foreground: 340 10% 40%;
+
+  /* supporting */
+  --secondary: 340 100% 97%;
+  --secondary-foreground: 340 50% 30%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 340 20% 90%;
+  --input: 340 20% 90%;
+  --ring: 340 70% 60%;
+
+  /* chart palette (monochrome pink variations) */
+  --chart-1: 340 80% 50%;
+  --chart-2: 340 70% 60%;
+  --chart-3: 340 60% 40%;
+  --chart-4: 340 85% 75%;
+  --chart-5: 340 90% 30%;
+
+  --radius: 0.625rem;
+  --sidebar: 0 0% 99%;
+  --sidebar-foreground: 240 10% 4%;
+  --sidebar-primary: 340 85% 52%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 340 100% 97%;
+  --sidebar-accent-foreground: 340 50% 30%;
+  --sidebar-border: 340 20% 90%;
+  --sidebar-ring: 340 70% 60%;
+}
+
+.dark {
+  --background: 340 20% 10%;
+  --foreground: 0 0% 98%;
+  --card: 340 20% 10%;
+  --card-foreground: 0 0% 98%;
+  --popover: 340 20% 10%;
+  --popover-foreground: 0 0% 98%;
+
+  --primary: 340 85% 70%;
+  --primary-foreground: 340 90% 10%;
+  --accent: 340 25% 15%;
+  --accent-foreground: 0 0% 100%;
+
+  --muted: 340 25% 18%;
+  --muted-foreground: 340 15% 70%;
+
+  --border: 340 20% 25%;
+  --input: 340 20% 25%;
+  --ring: 340 70% 60%;
+
+  /* keep charts in pink family */
+  --chart-1: 340 80% 65%;
+  --chart-2: 340 70% 60%;
+  --chart-3: 340 60% 50%;
+  --chart-4: 340 70% 75%;
+  --chart-5: 340 90% 40%;
+
+  --sidebar: 340 25% 14%;
+  --sidebar-foreground: 0 0% 98%;
+  --sidebar-primary: 340 80% 65%;
+  --sidebar-primary-foreground: 340 90% 10%;
+  --sidebar-accent: 340 25% 18%;
+  --sidebar-accent-foreground: 0 0% 98%;
+  --sidebar-border: 340 20% 25%;
+  --sidebar-ring: 340 70% 60%;
+}
+
+@theme inline {
+  /* optional: --font-sans, --font-serif, --font-mono if they are applied in the layout.tsx */
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-chart-1: hsl(var(--chart-1));
+  --color-chart-2: hsl(var(--chart-2));
+  --color-chart-3: hsl(var(--chart-3));
+  --color-chart-4: hsl(var(--chart-4));
+  --color-chart-5: hsl(var(--chart-5));
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: hsl(var(--sidebar));
+  --color-sidebar-foreground: hsl(var(--sidebar-foreground));
+  --color-sidebar-primary: hsl(var(--sidebar-primary));
+  --color-sidebar-primary-foreground: hsl(var(--sidebar-primary-foreground));
+  --color-sidebar-accent: hsl(var(--sidebar-accent));
+  --color-sidebar-accent-foreground: hsl(var(--sidebar-accent-foreground));
+  --color-sidebar-border: hsl(var(--sidebar-border));
+  --color-sidebar-ring: hsl(var(--sidebar-ring));
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
