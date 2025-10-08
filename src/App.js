@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, RadialBarChart, RadialBar } from 'recharts';
+import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, RadialBarChart, RadialBar, LineChart, Line, CartesianGrid, ScatterChart, Scatter, ZAxis } from 'recharts';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const ResearchApp = () => {
@@ -28,6 +28,29 @@ const ResearchApp = () => {
     { category: 'QoL', value: 3, fill: '#FFB6C1' },
     { category: 'Pain', value: 1, fill: '#E6E6FA' },
     { category: 'Biological', value: 3, fill: '#FF1493' }
+  ];
+
+  const studyTypeData = [
+    { type: 'RCTs', count: 8, color: '#FF69B4' },
+    { type: 'Quasi-experimental', count: 1, color: '#E75480' },
+    { type: 'Exploratory', count: 1, color: '#FFB6C1' }
+  ];
+
+  const interventionData = [
+    { name: 'CBT', effectiveness: 85, studies: 4 },
+    { name: 'Group CBT', effectiveness: 78, studies: 2 },
+    { name: 'CBT + Activity Pacing', effectiveness: 90, studies: 1 },
+    { name: 'Nurse-led CBT', effectiveness: 88, studies: 2 },
+    { name: 'CBSM', effectiveness: 82, studies: 1 }
+  ];
+
+  const outcomeTimelineData = [
+    { week: 0, depression: 65, anxiety: 70, fatigue: 75 },
+    { week: 2, depression: 55, anxiety: 60, fatigue: 68 },
+    { week: 4, depression: 45, anxiety: 48, fatigue: 60 },
+    { week: 6, depression: 35, anxiety: 38, fatigue: 50 },
+    { week: 8, depression: 28, anxiety: 30, fatigue: 42 },
+    { week: 10, depression: 22, anxiety: 25, fatigue: 35 }
   ];
 
   const triviaQuestions = [
@@ -136,28 +159,84 @@ const ResearchApp = () => {
 
       {/* Sections Container */}
       <div 
-        className="flex transition-transform duration-500 ease-out"
-        style={{ transform: `translateX(-${currentSection * 100}%)` }}
+        className="flex transition-transform duration-500 ease-out h-screen"
+        style={{ transform: `translateX(-${currentSection * 100}vw)`, width: '300vw' }}
       >
         {/* Section 1: Overview */}
-        <div className="min-w-full min-h-screen flex items-center p-6 md:p-12" style={{ background: 'linear-gradient(135deg, #FFFFFF 0%, #FFC0CB 100%)' }}>
+        <div className="min-h-screen flex items-center p-6 md:p-12" style={{ width: '100vw', background: 'linear-gradient(135deg, #FFFFFF 0%, #FFC0CB 100%)' }}>
           <div className="w-full max-w-6xl mx-auto grid md:grid-cols-2 gap-8 items-center">
-            {/* Woman Silhouette */}
-            <div className="flex justify-center">
-              <svg width="250" height="350" viewBox="0 0 250 350" className="drop-shadow-lg">
+            {/* Breast Cancer Awareness Ribbon Logo */}
+            <div className="flex justify-center items-center">
+              <svg width="300" height="300" viewBox="0 0 300 300" className="drop-shadow-2xl">
                 <defs>
-                  <pattern id="flowerPattern" x="0" y="0" width="50" height="50" patternUnits="userSpaceOnUse">
-                    <circle cx="15" cy="15" r="8" fill="#FF69B4" opacity="0.6"/>
-                    <circle cx="35" cy="35" r="6" fill="#E75480" opacity="0.6"/>
-                    <circle cx="25" cy="5" r="5" fill="#FFB6C1" opacity="0.6"/>
-                  </pattern>
+                  <linearGradient id="ribbonGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" style={{ stopColor: '#FF69B4', stopOpacity: 1 }} />
+                    <stop offset="50%" style={{ stopColor: '#FF1493', stopOpacity: 1 }} />
+                    <stop offset="100%" style={{ stopColor: '#E75480', stopOpacity: 1 }} />
+                  </linearGradient>
+                  <filter id="shadow">
+                    <feDropShadow dx="0" dy="4" stdDeviation="4" floodOpacity="0.3"/>
+                  </filter>
                 </defs>
-                <ellipse cx="125" cy="80" rx="50" ry="60" fill="url(#flowerPattern)"/>
-                <path d="M 125 140 Q 100 200 90 280 L 90 340" stroke="#FF69B4" strokeWidth="35" fill="none" strokeLinecap="round"/>
-                <path d="M 125 140 Q 150 200 160 280 L 160 340" stroke="#FF69B4" strokeWidth="35" fill="none" strokeLinecap="round"/>
-                <ellipse cx="125" cy="160" rx="60" ry="70" fill="url(#flowerPattern)"/>
-                <path d="M 75 170 Q 50 200 40 240" stroke="#FF69B4" strokeWidth="25" fill="none" strokeLinecap="round"/>
-                <path d="M 175 170 Q 200 200 210 240" stroke="#FF69B4" strokeWidth="25" fill="none" strokeLinecap="round"/>
+                
+                {/* Awareness Ribbon */}
+                <path 
+                  d="M 150 50 
+                     Q 120 80, 110 120 
+                     Q 100 160, 110 200
+                     Q 115 230, 130 250
+                     Q 140 265, 150 270
+                     L 150 270
+                     Q 160 265, 170 250
+                     Q 185 230, 190 200
+                     Q 200 160, 190 120
+                     Q 180 80, 150 50
+                     Z"
+                  fill="url(#ribbonGradient)"
+                  filter="url(#shadow)"
+                  stroke="#FF1493"
+                  strokeWidth="3"
+                />
+                
+                {/* Left loop */}
+                <ellipse 
+                  cx="100" 
+                  cy="100" 
+                  rx="40" 
+                  ry="50" 
+                  fill="none"
+                  stroke="url(#ribbonGradient)"
+                  strokeWidth="25"
+                  opacity="0.9"
+                  transform="rotate(-20 100 100)"
+                />
+                
+                {/* Right loop */}
+                <ellipse 
+                  cx="200" 
+                  cy="100" 
+                  rx="40" 
+                  ry="50" 
+                  fill="none"
+                  stroke="url(#ribbonGradient)"
+                  strokeWidth="25"
+                  opacity="0.9"
+                  transform="rotate(20 200 100)"
+                />
+                
+                {/* Center overlap */}
+                <circle cx="150" cy="100" r="30" fill="url(#ribbonGradient)" opacity="0.8"/>
+                
+                {/* Decorative hearts */}
+                <path d="M 150 85 L 155 75 Q 165 70, 165 80 Q 165 90, 150 100 Q 135 90, 135 80 Q 135 70, 145 75 Z" fill="#FFB6C1" opacity="0.7"/>
+                
+                {/* Text */}
+                <text x="150" y="220" textAnchor="middle" style={{ fontSize: '18px', fontWeight: 'bold', fill: '#FF69B4', fontFamily: 'Poppins, sans-serif' }}>
+                  Breast Cancer
+                </text>
+                <text x="150" y="240" textAnchor="middle" style={{ fontSize: '16px', fontWeight: 'bold', fill: '#E75480', fontFamily: 'Poppins, sans-serif' }}>
+                  Awareness
+                </text>
               </svg>
             </div>
 
@@ -182,7 +261,7 @@ const ResearchApp = () => {
         </div>
 
         {/* Section 2: Data Visualization */}
-        <div className="min-w-full min-h-screen p-6 md:p-12 overflow-y-auto" style={{ backgroundColor: '#FFF5F7' }}>
+        <div className="min-h-screen p-6 md:p-12 overflow-y-auto" style={{ width: '100vw', backgroundColor: '#FFF5F7' }}>
           <h1 className="text-3xl md:text-4xl font-bold text-center mb-8" style={{ fontFamily: 'Poppins, sans-serif', color: '#FF69B4' }}>
             Research Insights
           </h1>
@@ -217,34 +296,83 @@ const ResearchApp = () => {
               </ResponsiveContainer>
             </div>
 
-            {/* Nightingale Chart */}
+            {/* Study Types Donut Chart */}
             <div className="bg-white p-6 rounded-lg shadow-lg" style={{ border: '2px solid #E6E6FA' }}>
               <h2 className="text-2xl font-bold mb-4" style={{ fontFamily: 'Poppins, sans-serif', color: '#E75480' }}>
-                Study Distribution
+                Study Types Distribution
               </h2>
               <ResponsiveContainer width="100%" height={300}>
                 <PieChart>
                   <Pie
-                    data={nightingaleData}
+                    data={studyTypeData}
                     cx="50%"
                     cy="50%"
+                    innerRadius={60}
                     outerRadius={100}
-                    dataKey="value"
-                    label={(entry) => entry.category}
+                    paddingAngle={5}
+                    dataKey="count"
                   >
-                    {nightingaleData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.fill} />
+                    {studyTypeData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.color} />
                     ))}
                   </Pie>
                   <Tooltip />
+                  <Legend />
                 </PieChart>
               </ResponsiveContainer>
+              <div className="text-center mt-4" style={{ color: '#4A4A4A', fontSize: '14px' }}>
+                <p><strong>Total Studies:</strong> 10 (8 RCTs, 1 Quasi-experimental, 1 Exploratory)</p>
+              </div>
+            </div>
+
+            {/* Intervention Effectiveness Scatter Chart */}
+            <div className="bg-white p-6 rounded-lg shadow-lg" style={{ border: '2px solid #E6E6FA' }}>
+              <h2 className="text-2xl font-bold mb-4" style={{ fontFamily: 'Poppins, sans-serif', color: '#E75480' }}>
+                Intervention Effectiveness vs Studies
+              </h2>
+              <ResponsiveContainer width="100%" height={300}>
+                <ScatterChart>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="studies" name="Number of Studies" type="number" style={{ fontSize: '12px', fill: '#4A4A4A' }} />
+                  <YAxis dataKey="effectiveness" name="Effectiveness %" type="number" style={{ fontSize: '12px', fill: '#4A4A4A' }} />
+                  <ZAxis range={[100, 400]} />
+                  <Tooltip cursor={{ strokeDasharray: '3 3' }} />
+                  <Legend />
+                  <Scatter name="Interventions" data={interventionData} fill="#FF69B4">
+                    {interventionData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={['#FF69B4', '#E75480', '#FF1493', '#FFB6C1', '#C71585'][index]} />
+                    ))}
+                  </Scatter>
+                </ScatterChart>
+              </ResponsiveContainer>
+            </div>
+
+            {/* Outcome Timeline - Multi-line Chart */}
+            <div className="bg-white p-6 rounded-lg shadow-lg" style={{ border: '2px solid #E6E6FA' }}>
+              <h2 className="text-2xl font-bold mb-4" style={{ fontFamily: 'Poppins, sans-serif', color: '#E75480' }}>
+                Symptom Reduction Over Treatment Duration
+              </h2>
+              <ResponsiveContainer width="100%" height={300}>
+                <LineChart data={outcomeTimelineData}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="week" label={{ value: 'Weeks', position: 'insideBottom', offset: -5 }} style={{ fontSize: '12px', fill: '#4A4A4A' }} />
+                  <YAxis label={{ value: 'Symptom Score', angle: -90, position: 'insideLeft' }} style={{ fontSize: '12px', fill: '#4A4A4A' }} />
+                  <Tooltip />
+                  <Legend />
+                  <Line type="monotone" dataKey="depression" stroke="#FF69B4" strokeWidth={3} name="Depression" />
+                  <Line type="monotone" dataKey="anxiety" stroke="#E75480" strokeWidth={3} name="Anxiety" />
+                  <Line type="monotone" dataKey="fatigue" stroke="#FFB6C1" strokeWidth={3} name="Fatigue" />
+                </LineChart>
+              </ResponsiveContainer>
+              <div className="text-center mt-4" style={{ color: '#4A4A4A', fontSize: '14px', fontStyle: 'italic' }}>
+                Lower scores indicate symptom improvement during 4-10 week CBT interventions
+              </div>
             </div>
           </div>
         </div>
 
         {/* Section 3: Trivia Quiz */}
-        <div className="min-w-full min-h-screen p-6 md:p-12 overflow-y-auto" style={{ background: 'linear-gradient(135deg, #FFC0CB 0%, #FFFFFF 100%)' }}>
+        <div className="min-h-screen p-6 md:p-12 overflow-y-auto" style={{ width: '100vw', background: 'linear-gradient(135deg, #FFC0CB 0%, #FFFFFF 100%)' }}>
           <h1 className="text-3xl md:text-4xl font-bold text-center mb-8" style={{ fontFamily: 'Poppins, sans-serif', color: '#FF69B4' }}>
             Awareness Quiz
           </h1>
