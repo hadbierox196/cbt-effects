@@ -17,8 +17,9 @@ export function Hero() {
           desktop.
         </p>
 
+        {/* Cards row: fixed classes so Tailwind works correctly and prevents the weird gap */}
         <div
-          className="w-full -mx-4 px-4 flex gap-3 overflow-x-auto py-2 snap-x snap-mandatory scroll-px-4 scroll-smooth overscroll-x-contain"
+          className="w-full -mx-4 px-4 flex gap-3 overflow-x-auto snap-x snap-mandatory scroll-px-4 scroll-smooth overscroll-x-contain py-2"
           aria-label="Outcome domains"
           role="list"
         >
