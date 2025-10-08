@@ -1,34 +1,37 @@
-import { Card } from "@/components/ui/card"
+"use client"
 
-export type Condition = {
-  id: string
-  title: string
-  summary: string
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { ResponsiveContainer } from "recharts"
+import dynamic from "next/dynamic"
+import type { Condition } from "@/lib/data"
+
+const Chart = dynamic(() => import("./chart"), { ssr: false })
+
+interface ConditionCardProps {
+  condition: Condition
 }
 
-export function ConditionCard({
-  condition,
-  className = "",
-}: {
-  condition: Condition
-  className?: string
-}) {
+export function ConditionCard({ condition }: ConditionCardProps) {
   return (
     <Card
-      className={`w-full sm:w-56 md:w-60 sm:shrink-0 p-4 bg-card rounded-lg shadow-sm transition-all duration-300 hover:shadow-md hover:scale-[1.02] ${className}`}
-      role="article"
-      aria-labelledby={`condition-title-${condition.id}`}
-      title={condition.title}
+      className="w-[280px] sm:w-[300px] md:w-[320px] flex-shrink-0 rounded-2xl border border-border/40 shadow-md bg-background/80 backdrop-blur"
     >
-      <h3
-        id={`condition-title-${condition.id}`}
-        className="font-serif text-lg text-foreground mb-2"
-      >
-        {condition.title}
-      </h3>
-      <p className="text-sm text-muted-foreground whitespace-normal break-words leading-relaxed">
-        {condition.summary}
-      </p>
+      <CardHeader>
+        <CardTitle className="text-base md:text-lg font-semibold">{condition.title}</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div
+          className="h-[220px] sm:h-[250px] flex items-center justify-center overflow-hidden"
+        >
+          {/* 
+            The chart wrapper is forced to stay within the card boundaries 
+            and scale responsively instead of stretching the layout.
+          */}
+          <ResponsiveContainer width="100%" height="100%">
+            <Chart data={condition.data} type={condition.chartType} />
+          </ResponsiveContainer>
+        </div>
+      </CardContent>
     </Card>
   )
 }
